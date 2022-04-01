@@ -1,0 +1,86 @@
+using System;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Collections.Generic;
+using System.Collections;
+
+
+namespace AssociativeArrays
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<string> input = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+
+            // left side
+
+            //If it's uppercase - divide 
+            //If it's lowercase - multiply 
+
+            // right side
+
+            //If it's uppercase you subtract its position from the resulted number.
+            //If it's lowercase you add its position to the resulted number.
+
+            double result = 0;
+            double currentResult = 0;
+
+            double currentNum = 0;
+
+            string num = "";
+
+            char firstLetter = 'a';
+            char secondLetter = 'a';
+
+            double firstChar = firstLetter;
+            double secondChar = secondLetter;
+
+            foreach (var item in input)
+            {
+                currentResult = 0;
+                num = "";
+                for (int i = 1; i < item.Length - 1; i++) // A12b
+                {
+                    num += item[i];
+
+                }
+                currentNum = int.Parse(num);
+
+                firstLetter = item[0];
+                firstChar = firstLetter;
+                if (firstChar > 64 && firstChar < 91) // Upper
+                {
+                    firstChar -= 64.00;
+
+                    currentResult += currentNum / firstChar;
+                }
+                else // lower
+                {
+                    firstChar -= 96.00;
+                    currentResult += firstChar * currentNum;
+                }
+
+                secondLetter = item[item.Length - 1];
+                secondChar = secondLetter;
+                if (secondChar > 64 && secondChar < 91) // Upper
+                {
+                    secondChar -= 64.00;
+                    currentResult -= secondChar;
+                }
+                else // lower
+                {
+                    secondChar -= 96.00;
+                    currentResult += secondChar;
+                }
+                result += currentResult;
+
+            }
+
+            Console.WriteLine($"{result:f2}");
+        }
+    }
+}
